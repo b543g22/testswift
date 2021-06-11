@@ -22,7 +22,7 @@ class TopViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        //aaa
         api()
     }
     
