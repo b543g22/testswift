@@ -22,15 +22,14 @@ class TopViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //aaa
         api()
     }
     
     func api() {
-        let urlString = "http://52.194.225.173//api/member"
+        let urlString = "http://52.194.225.173/api/user"
         let encodeUrlString:String = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         userInfo.userDelegate = self
-        userInfo.SetData(resultCount: 2, encodeUrlString: encodeUrlString)
+        userInfo.SetData(resultCount: 3, encodeUrlString: urlString)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
