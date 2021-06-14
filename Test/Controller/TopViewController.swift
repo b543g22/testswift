@@ -29,7 +29,7 @@ class TopViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         let urlString = "http://52.194.225.173/api/user"
         let encodeUrlString:String = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         userInfo.userDelegate = self
-        userInfo.SetData(resultCount: 3, encodeUrlString: urlString)
+        userInfo.SetData(resultCount: 4, encodeUrlString: encodeUrlString)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

@@ -15,6 +15,11 @@ protocol UserInfoProtocol {
 
 class UserInfo {
     
+    var name = String()
+    var email = String()
+    var password = String()
+    var updkbn = String()
+    
     var idArray = [Int]()
     var nameArray = [String]()
     var emailArray = [String]()
@@ -48,6 +53,20 @@ class UserInfo {
                 break
             case .failure(_): break
             }
+        }
+    }
+    
+    func StoreData(encodeUrlString:String){
+        
+        let params: Parameters = [
+            "name" : self.name,
+            "email" : self.email,
+            "password" : self.password,
+            "updkbn" : "A"
+        ]
+        
+        AF.request(encodeUrlString, method: .post, parameters: params, encoding: JSONEncoding.default).responseJSON { (response) in
+            print(response.result)
         }
     }
 }
