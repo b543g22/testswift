@@ -61,8 +61,17 @@ class UserInfo {
             "password_confirmation" : self.password_confirmation
         ]
         
-        AF.request(encodeUrlString, method: .post, parameters: params, encoding: JSONEncoding.default).responseJSON { (response) in
-            print(response.result)
+        let headers: HTTPHeaders = [
+            "Content-Type": "application/x-www-form-urlencoded"
+        ]
+        
+        AF.request(encodeUrlString, method: .post, parameters: params,encoding: URLEncoding.httpBody, headers: headers).response { response in
+            print(response.request as Any)
+            print(response.response as Any)
+            print(response.data as Any)
+            print(response.error as Any)
         }
+        
     }
 }
+
