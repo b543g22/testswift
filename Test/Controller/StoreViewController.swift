@@ -9,12 +9,15 @@ import UIKit
 
 class StoreViewController: UIViewController {
 
+    let contentsView = UIView()
     let nameText = UILabel()
     let nameTextField = UITextField()
     let emailText = UILabel()
     let emailTextField = UITextField()
     let passwordText = UILabel()
     let passwordTextField = UITextField()
+    let password_confirmationText = UILabel()
+    let password_confirmationTextField = UITextField()
     let storeButton = UIButton()
     var userInfo = UserInfo()
 
@@ -23,7 +26,6 @@ class StoreViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let contentsView = UIView()
         contentsView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height * 2)
         scrollView.addSubview(contentsView)
         scrollView.contentSize = contentsView.frame.size
@@ -55,7 +57,17 @@ class StoreViewController: UIViewController {
         passwordTextField.borderStyle = .roundedRect
         contentsView.addSubview(passwordTextField)
         
-        storeButton.frame = CGRect(x: 56, y: 450, width: 200, height: 100)
+        password_confirmationText.text = "パスワード確認"
+        password_confirmationText.frame = CGRect(x: 56, y: 450, width: 100, height: 21)
+        password_confirmationText.textColor = .black
+        contentsView.addSubview(password_confirmationText)
+        
+        password_confirmationTextField.frame = CGRect(x: 56, y: 480, width: 273, height: 34)
+        password_confirmationTextField.borderStyle = .roundedRect
+        contentsView.addSubview(password_confirmationTextField)
+        
+        
+        storeButton.frame = CGRect(x: 56, y: 540, width: 200, height: 100)
         storeButton.setTitle("登録", for: UIControl.State.normal)
         storeButton.backgroundColor = .blue
         storeButton.setTitleColor(UIColor.white, for: .normal)
@@ -71,25 +83,32 @@ class StoreViewController: UIViewController {
     }
     
     @objc func StoreButtonTapped(){
-        let urlString = "http://52.194.225.173/api/user"
+        
+        if !validateEmail(candidate: emailTextField.text!) {
+            let errEmail = UILabel()
+            errEmail.frame = CGRect(x: 70, y: 270, width: 200, height: 30)
+            errEmail.text = "正しいメールアドレスを入力してください"
+            errEmail.textColor = .red
+            contentsView.addSubview(errEmail)
+        }
+        
+        
+        let urlString = "http://52.194.225.173/api/register"
         let encodeUrlString:String = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         
         userInfo.name = nameTextField.text!
         userInfo.email = emailTextField.text!
         userInfo.password = passwordTextField.text!
-        userInfo.updkbn = "A"
+        userInfo.password_confirmation = password_confirmationTextField.text!
         
         userInfo.StoreData(encodeUrlString: encodeUrlString)
+        
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    
+    func validateEmail(candidate: String) -> Bool {
+         let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}"
+            return NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluate(with: candidate)
+        }
     
     
 

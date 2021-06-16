@@ -18,13 +18,11 @@ class UserInfo {
     var name = String()
     var email = String()
     var password = String()
-    var updkbn = String()
+    var password_confirmation = String()
     
     var idArray = [Int]()
     var nameArray = [String]()
     var emailArray = [String]()
-    var passwordArray = [String]()
-    var updkbnArray = [String]()
     
     var userDelegate:UserInfoProtocol?
     
@@ -44,8 +42,6 @@ class UserInfo {
                         self.idArray.append(json["data"][i]["id"].int!)
                         self.nameArray.append(json["data"][i]["name"].string!)
                         self.emailArray.append(json["data"][i]["email"].string!)
-                        self.passwordArray.append(json["data"][i]["password"].string!)
-                        self.updkbnArray.append(json["data"][i]["updkbn"].string!)
                     }
                     self.userDelegate?.catcheData()
                 } catch  {
@@ -62,7 +58,7 @@ class UserInfo {
             "name" : self.name,
             "email" : self.email,
             "password" : self.password,
-            "updkbn" : "A"
+            "password_confirmation" : self.password_confirmation
         ]
         
         AF.request(encodeUrlString, method: .post, parameters: params, encoding: JSONEncoding.default).responseJSON { (response) in
