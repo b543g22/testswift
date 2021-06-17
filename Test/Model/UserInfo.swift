@@ -63,9 +63,9 @@ class UserInfo {
         
         
         AF.request(encodeUrlString, method: .post, parameters: params, encoder: URLEncodedFormParameterEncoder.default).response { response in
-            
+
             switch response.result {
-            
+
             case .success:
                 print("成功")
                 break
