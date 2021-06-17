@@ -54,22 +54,24 @@ class UserInfo {
     
     func StoreData(encodeUrlString:String){
         
-        let params: Parameters = [
+        let params: [String: String] = [
             "name" : self.name,
             "email" : self.email,
             "password" : self.password,
             "password_confirmation" : self.password_confirmation
         ]
         
-        let headers: HTTPHeaders = [
-            "Content-Type": "application/x-www-form-urlencoded"
-        ]
         
-        AF.request(encodeUrlString, method: .post, parameters: params,encoding: URLEncoding.httpBody, headers: headers).response { response in
-            print(response.request as Any)
-            print(response.response as Any)
-            print(response.data as Any)
-            print(response.error as Any)
+        AF.request(encodeUrlString, method: .post, parameters: params, encoder: URLEncodedFormParameterEncoder.default).response { response in
+            
+            switch response.result {
+            
+            case .success:
+                print("成功")
+                break
+            case .failure(_):
+                break
+            }
         }
         
     }
